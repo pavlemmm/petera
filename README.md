@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐾 Petera Platforma
 
-## Getting Started
+## 📌 Tema projekta
 
-First, run the development server:
+**Petera** je web aplikacija koja povezuje **čuvare kućnih ljubimaca** sa **vlasnicima ljubimaca**.  
+Cilj platforme je da vlasnicima olakša pronalaženje pouzdane osobe koja može da čuva njihove ljubimce, dok čuvarima omogućava da ponude svoje usluge kroz pregledan i profesionalan sistem.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ❗ Problem
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Vlasnici kućnih ljubimaca se često suočavaju sa sledećim problemima:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Nema centralizovane i pouzdane platforme gde mogu da pronađu čuvare sa ocenama i iskustvom.
+- Pronalaženje čuvara je često sporo, neprovereno i bazirano na preporukama „od usta do usta“.
+- Teško je uporediti čuvare po ceni, lokaciji i vrsti ljubimaca koje primaju.
+- Vlasnici nemaju uvid u prethodne recenzije ili iskustva drugih korisnika.
+- Čuvari nemaju mesto gde mogu profesionalno da predstave svoje usluge i privuku nove klijente.
 
-## Learn More
+Ovi problemi stvaraju nesigurnost, gubljenje vremena i otežavaju donošenje odluke o izboru pravog čuvara.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ✅ Rešenje
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Petera** rešava ove probleme pružajući jedinstveno mesto gde se čuvari i vlasnici lako povezuju.  
+Platforma nudi:
 
-## Deploy on Vercel
+- **Profili čuvara** sa opisom, lokacijom, cenom i vrstama ljubimaca koje čuvaju
+- **Oglase čuvara** koje vlasnici mogu pretraživati i filtrirati po gradu, ceni, tipu ljubimca i ocenama
+- **Recenzije i ocene** na osnovu iskustva prošlih vlasnika
+- **Proziran i jednostavan pregled podataka** koji olakšava upoređivanje ponuda
+- **Sigurno okruženje** u kome čuvari i vlasnici grade reputaciju kroz ocene i komentare
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Na ovaj način, platforma ubrzava proces pronalaženja pouzdanog čuvara, smanjuje rizik i omogućava jednostavno povezivanje dve strane.

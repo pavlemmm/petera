@@ -3,9 +3,8 @@ import {Button} from "@/components/ui/button";
 
 export default function Home() {
     return (
-        <div className="max-w-5xl m-auto">
-
-            <Section className="mt-5 bg-gradient-to-r from-white/70 to-white/40">
+        <div className="max-w-5xl m-auto py-10 space-y-10">
+            <Section className="bg-gradient-to-r from-white/70 to-white/40">
                 <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance mt-3">
                     Zajednica gde vlasnici i čuvari kućnih ljubimaca grade poverenje zajedno.
                 </h1>
@@ -19,7 +18,7 @@ export default function Home() {
                     putovanje vlasnika i svaki novi klijent čuvara obojen radošću, a ne neizvesnošću.
                 </p>
             </Section>
-            <Section className="mt-10 bg-white/50 flex space-x-3">
+            <Section className="bg-white/50 flex space-x-3">
                 <div>
                     <h3 className="text-xs font-semibold tracking-widest text-orange-700">ZA VLASNIKE</h3>
                     <h2 className="scroll-m-20 text-4xl font-extrabold tracking-tight text-balance">
