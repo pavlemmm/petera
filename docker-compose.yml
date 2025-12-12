@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: petera-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: petera
+    ports:
+      - "5432:5432"
