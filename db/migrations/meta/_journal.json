@@ -8,6 +8,13 @@
       "when": 1764095119818,
       "tag": "0000_thick_azazel",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1766255940062,
+      "tag": "0001_supreme_pete_wisdom",
+      "breakpoints": true
     }
   ]
 }

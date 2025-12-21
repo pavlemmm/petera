@@ -1,14 +1,14 @@
 "use server"
 
-import Section from "@/components/layout/section";
+import Section from "@/components/section";
 import Form from "./form";
 
-export default async function PrijavaCuvar() {
+export default async function CuvarRegistracija() {
   return (
     <div className="max-w-5xl m-auto py-10 px-2 space-y-10">
       <Section className="bg-linear-to-r from-white/80 to-white/40">
         <p className="text-sm font-semibold tracking-widest text-orange-700">
-          PRIJAVA ZA ČUVARE
+          PRIJAVI SE
         </p>
         <h2 className="text-2xl font-extrabold tracking-tight text-balance">
           Pokaži kome poveravamo naše ljubimce
@@ -25,3 +25,5 @@ export default async function PrijavaCuvar() {
     </div>
   );
 }
+
+

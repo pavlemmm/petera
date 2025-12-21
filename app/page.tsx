@@ -1,4 +1,4 @@
-import Section from "@/components/layout/section";
+import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -34,9 +34,9 @@ export default function Home() {
               Svaki profil prolazi ručnu verifikaciju identiteta, fotografije prostora i plan brige. Tako je
               svako putovanje vlasnika i svaki novi klijent čuvara obojen radošću, a ne neizvesnošću.
             </p></div>
-          <Link href="/prijava-vlasnik">
+          <Link href="/vlasnik-registracija">
             <Button className="mt-6">
-              Prijavi se kao vlasnik
+              Registruj se kao vlasnik
             </Button>
           </Link>
         </div>
@@ -53,9 +53,9 @@ export default function Home() {
               Svaki profil prolazi ručnu verifikaciju identiteta, fotografije prostora i plan brige. Tako je
               svako putovanje vlasnika i svaki novi klijent čuvara obojen radošću, a ne neizvesnošću.
             </p></div>
-          <Link href="/prijava-cuvar">
+          <Link href="/cuvar-registracija">
             <Button className="mt-6">
-              Prijavi se kao čuvar
+              Registruj se kao čuvar
             </Button>
           </Link>
         </div>
