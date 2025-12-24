@@ -16,16 +16,17 @@ import { useState } from "react";
 
 import { signIn } from "next-auth/react"
 
-import { LoginErrors } from "./types";
 
 import Errors from "../components/Errors";
 import FormError from "../components/FormError";
 
-import { UserLoginSchema } from "@/lib/validations/userLogin";
 import { validateField } from "../lib/validateField";
-import { UserLoginSchemaKeys } from "@/lib/validations/types";
 
 import { useRouter } from "next/navigation";
+
+import { LoginErrors } from "../types";
+import { UserLoginSchema } from "../lib/validations/userLogin";
+import { UserLoginSchemaKeys } from "../lib/validations/types";
 
 
 export default function Form() {

@@ -4,9 +4,9 @@ import { db } from "@/db/db";
 import { sitters, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-import { SitterRegisterSchema } from "@/lib/validations/sitterRegister";
+import { SitterRegisterSchema } from "../lib/validations/sitterRegister";
 
-import { generateSalt, hashPassword } from "@/lib/passwordHasher";
+import { generateSalt, hashPassword } from "../lib/passwordHasher";
 
 import { UserRole } from "@/db/types";
 
