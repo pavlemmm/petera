@@ -1,8 +1,7 @@
 import { z } from "zod";
 
 export const SitterRegisterSchema = z.object({
-  name: z.string().min(2, "Ime mora imati bar 2 karaktera."),
-  lastName: z.string().min(2, "Prezime mora imati bar 2 karaktera."),
+  name: z.string().min(2, "Ime i Prezime mora imati bar 2 karaktera."),
   email: z.email("Unesite validan email."),
   password: z.string().min(8, "Šifra mora imati bar 8 karaktera."),
   confirmPassword: z.string(),

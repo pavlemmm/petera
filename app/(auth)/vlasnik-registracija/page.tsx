@@ -8,7 +8,7 @@ export default async function CuvarRegistracija() {
     <div className="max-w-5xl m-auto py-10 px-2 space-y-10">
       <Section className="bg-linear-to-r from-white/80 to-white/40">
         <p className="text-sm font-semibold tracking-widest text-orange-700">
-          REGISTRACIJA ZA ČUVARE
+          REGISTRACIJA ZA VLASNIKE
         </p>
         <h2 className="text-2xl font-extrabold tracking-tight text-balance">
           Pokaži kome poveravamo naše ljubimce

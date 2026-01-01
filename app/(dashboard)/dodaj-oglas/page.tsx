@@ -1,17 +1,20 @@
+import { UserRole } from "@/db/types";
+import { requireAuth } from "@/lib/auth-server-helper";
 import Section from "@/components/section";
 import Form from "./form";
-import { requireNoSession } from "@/lib/auth-server-helper";
 
-export default async function CuvarRegistracija() {
-  await requireNoSession()
+
+export default async function DodajOglasPage() {
+  const session = await requireAuth(UserRole.SITTER)
+
   return (
     <div className="max-w-5xl m-auto py-10 px-2 space-y-10">
       <Section className="bg-linear-to-r from-white/80 to-white/40">
         <p className="text-sm font-semibold tracking-widest text-orange-700">
-          REGISTRACIJA ZA ČUVARE
+          Dodaj Oglas
         </p>
         <h2 className="text-2xl font-extrabold tracking-tight text-balance">
-          Pokaži kome poveravamo naše ljubimce
+          Dodajte oglas i krenite da zaradjujete
         </h2>
         <p className="leading-7 text-sm mt-4 text-muted-foreground">
           Obrazac ispod nam pomaže da upoznamo tebe, tvoj prostor i standard brige koji nudiš. Nakon što
@@ -23,7 +26,6 @@ export default async function CuvarRegistracija() {
         <Form />
       </Section>
     </div>
-  );
+  )
 }
-
 

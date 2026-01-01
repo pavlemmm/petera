@@ -1,9 +1,9 @@
-"use server"
-
 import Section from "@/components/section";
 import Form from "./form";
+import { requireNoSession } from "@/lib/auth-server-helper";
 
 export default async function CuvarRegistracija() {
+  await requireNoSession()
   return (
     <div className="max-w-5xl m-auto py-10 px-2 space-y-10">
       <Section className="bg-linear-to-r from-white/80 to-white/40">

@@ -1,8 +1,10 @@
 import Section from "@/components/section";
 import { Button } from "@/components/ui/button";
+import { requireNoSession } from "@/lib/auth-server-helper";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  await requireNoSession()
   return (
     <div className="max-w-5xl m-auto py-10 px-2 space-y-10">
       <Section className="bg-linear-to-r from-white/70 to-white/40">

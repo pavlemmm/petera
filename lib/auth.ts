@@ -1,7 +1,9 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { db } from "@/db/db"; // your drizzle instance
-import { account, session, user, verification } from "@/db/schema";
+
+import { db } from "@/db/db";
+import { sitter } from "@/db/schema";
+
 import { UserRole } from "@/db/types";
 
 export const auth = betterAuth({
@@ -15,7 +17,19 @@ export const auth = betterAuth({
         type: [UserRole.OWNER, UserRole.SITTER],
         required: true,
         defaultValue: UserRole.OWNER,
-        input: false, // don't allow user to set role
+        input: true,
+      }
+    }
+  },
+
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          if (user.role === UserRole.SITTER) {
+            await db.insert(sitter).values({ id: user.id })
+          }
+        }
       }
     }
   },

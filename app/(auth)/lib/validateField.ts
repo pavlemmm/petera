@@ -14,3 +14,9 @@ export function validateField<T extends z.ZodObject<any>>(
 
   return result.error.issues.map(issue => issue.message);
 }
+
+export function hasErrors() {
+  return Object.values(errors).some(
+    (field) => field && field.length > 0
+  );
+} 

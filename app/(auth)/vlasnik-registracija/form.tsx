@@ -19,7 +19,6 @@ import { UserRole } from "@/db/types";
 import { useRegister } from "../lib/hooks/useRegister";
 import Link from "next/link";
 
-
 export default function Form() {
   const { register, isLoading, error } = useRegister()
 
@@ -27,7 +26,7 @@ export default function Form() {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    await register(formData, UserRole.SITTER)
+    await register(formData, UserRole.OWNER)
   };
 
   return (
@@ -67,6 +66,7 @@ export default function Form() {
             <FieldLabel>Potvrdi šifru</FieldLabel>
             <Input
               name="confirmPassword"
+
               type="password"
               required
               minLength={8}
@@ -86,6 +86,7 @@ export default function Form() {
             <FieldDescription>
               Pošalji jasne fotografije sebe i obe strane lične karte ili pasoša.
             </FieldDescription>
+            {/* <Errors>{errors.document}</Errors> */}
           </Field>
 
 
@@ -106,9 +107,9 @@ export default function Form() {
                 Već imam nalog
               </Button>
             </Link>
-            <Link href="/vlasnik-registracija">
+            <Link href="/cuvar-registracija">
               <Button variant="outline" type="button">
-                Registruj se kao vlasnik
+                Registruj se kao čuvar
               </Button>
             </Link>
 

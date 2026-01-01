@@ -12,51 +12,43 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 
-import Error from "../components/Error";
-
-import { useLogin } from "../lib/hooks/useLogin";
 import Link from "next/link";
+import { useTransition } from "react";
 
 
 export default function Form() {
-  const { login, isLoading, error } = useLogin()
-
+  const [isLoading, setLoading] = useTransition()
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-    await login(formData)
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <FieldSet>
-        <FieldLegend>Prijavi se</FieldLegend>
+        <FieldLegend>Dodaj Oglas</FieldLegend>
         <FieldDescription>
-          Popuni obrazac sa podacima za prijavu
+          Popuni obrazac sa podacima za oglas
         </FieldDescription>
 
         <FieldGroup>
           <Field>
-            <FieldLabel>Email</FieldLabel>
+            <FieldLabel>Naslov oglasa</FieldLabel>
             <Input
-              name="email"
-              type="email"
+              name="title"
+              type="text"
               required
             />
           </Field>
 
           <Field>
-            <FieldLabel>Šifra</FieldLabel>
+            <FieldLabel>Grad</FieldLabel>
             <Input
-              name="password"
+              name="city"
               type="password"
               required
               minLength={8}
             />
           </Field>
-
-          <Error>{error}</Error>
 
           <Field orientation="horizontal">
             <Button type="submit">{isLoading ? "Prijavljujem se..." : "Prijavi se"}</Button>

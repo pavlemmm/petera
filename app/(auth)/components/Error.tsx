@@ -4,7 +4,7 @@ type FormErrorProps = {
   children?: string | null;
 };
 
-export default function FormError({ children }: FormErrorProps) {
+export default function Error({ children }: FormErrorProps) {
   return children ? <FieldError>{children}</FieldError> : null;
 }
 
