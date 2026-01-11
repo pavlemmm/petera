@@ -9,11 +9,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { authClient } from "@/lib/auth-client";
+import { UserRole } from "@/db/types";
+import { getSession, signOut } from "@/lib/auth-client-helper";
 
 
 export default function Navbar() {
-  const { data: session } = authClient.useSession()
+  const {session, user, role} = getSession()
 
   return (
     <nav className="w-full bg-background shadow-2xl">
@@ -45,9 +46,17 @@ export default function Navbar() {
             </DropdownMenu>
           </div>
         ) : (
-          <div>
-            <h2 className="mr-5 inline">{session.user.name}</h2>
-            <Button variant="destructive" onClick={() => authClient.signOut()}>Odjavi se</Button>
+          <div className="flex items-center gap-3">
+            <h2 className="mr-5 inline">{user!.name}</h2>
+            {role == UserRole.SITTER && (
+              <Link href="/dodaj-oglas">
+                <Button className="gap-2">
+                  <span className="text-xl leading-none">+</span>
+                  Dodaj oglas
+                </Button>
+              </Link>
+            )}
+            <Button variant="destructive" onClick={() => signOut()}>Odjavi se</Button>
           </div>
         )}
       </div>

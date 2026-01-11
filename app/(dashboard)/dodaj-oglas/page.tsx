@@ -3,9 +3,8 @@ import { requireAuth } from "@/lib/auth-server-helper";
 import Section from "@/components/section";
 import Form from "./form";
 
-
 export default async function DodajOglasPage() {
-  const session = await requireAuth(UserRole.SITTER)
+  const { session, user } = await requireAuth(UserRole.SITTER);
 
   return (
     <div className="max-w-5xl m-auto py-10 px-2 space-y-10">
@@ -17,8 +16,9 @@ export default async function DodajOglasPage() {
           Dodajte oglas i krenite da zaradjujete
         </h2>
         <p className="leading-7 text-sm mt-4 text-muted-foreground">
-          Obrazac ispod nam pomaže da upoznamo tebe, tvoj prostor i standard brige koji nudiš. Nakon što
-          pošalješ prijavu naš tim se javlja u roku od 48h sa sledećim koracima verifikacije.
+          Obrazac ispod nam pomaže da upoznamo tebe, tvoj prostor i standard
+          brige koji nudiš. Nakon što pošalješ prijavu naš tim se javlja u roku
+          od 48h sa sledećim koracima verifikacije.
         </p>
       </Section>
 
@@ -26,6 +26,5 @@ export default async function DodajOglasPage() {
         <Form />
       </Section>
     </div>
-  )
+  );
 }
-

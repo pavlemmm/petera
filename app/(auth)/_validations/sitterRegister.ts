@@ -5,7 +5,10 @@ export const SitterRegisterSchema = z.object({
   email: z.email("Unesite validan email."),
   password: z.string().min(8, "Šifra mora imati bar 8 karaktera."),
   confirmPassword: z.string(),
-  terms: z.boolean().refine(v => v === true, "Morate prihvatiti uslove."),
+  terms: z.preprocess(
+    (v) => v === "on",
+    z.literal(true, { message: "Morate prihvatiti uslove." })
+  ),
   // document: z.any().refine(
   //     (val) => Array.isArray(val) && val.length > 0,
   //     "Morate uploadovati bar jednu sliku"

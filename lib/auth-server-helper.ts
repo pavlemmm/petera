@@ -4,24 +4,27 @@ import { notFound, redirect } from "next/navigation";
 import { UserRole } from "@/db/types";
 
 export async function requireAuth(role?: UserRole) {
-  const session = await auth.api.getSession({
+  const data = await auth.api.getSession({
     headers: await headers(),
   });
+  const session = data?.session
+  const user = data?.user
 
-  if (!session || (role && session.user.role !== role)) {
+  if (!session || !user || (role && user.role !== role)) {
     notFound();
   }
 
-  return session;
+  return { session, user, role: user.role };
 }
 
 export async function requireNoSession() {
-  const session = await auth.api.getSession({
+  const data = await auth.api.getSession({
     headers: await headers(),
   });
+  const session = data?.session
 
   if (session) {
     // notFound();
-    redirect('/oglasi')
+    redirect("/oglasi");
   }
 }

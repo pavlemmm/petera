@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Field,
   FieldDescription,
@@ -12,21 +12,21 @@ import {
   FieldSet,
 } from "@/components/ui/field";
 
-import Error from "../components/Error";
+import Error from "../_components/Error";
 
 import { UserRole } from "@/db/types";
 
-import { useRegister } from "../lib/hooks/useRegister";
+import { useRegister } from "../_hooks/useRegister";
 import Link from "next/link";
 
 export default function Form() {
-  const { register, isLoading, error } = useRegister()
+  const { register, isLoading, error } = useRegister();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
-    await register(formData, UserRole.OWNER)
+    await register(formData, UserRole.OWNER);
   };
 
   return (
@@ -45,28 +45,18 @@ export default function Form() {
 
           <Field>
             <FieldLabel>Email</FieldLabel>
-            <Input
-              name="email"
-              type="email"
-              required
-            />
+            <Input name="email" type="email" required />
           </Field>
 
           <Field>
             <FieldLabel>Šifra</FieldLabel>
-            <Input
-              name="password"
-              type="password"
-              required
-              minLength={8}
-            />
+            <Input name="password" type="password" required minLength={8} />
           </Field>
 
           <Field>
             <FieldLabel>Potvrdi šifru</FieldLabel>
             <Input
               name="confirmPassword"
-
               type="password"
               required
               minLength={8}
@@ -84,23 +74,25 @@ export default function Form() {
               className="cursor-pointer"
             />
             <FieldDescription>
-              Pošalji jasne fotografije sebe i obe strane lične karte ili pasoša.
+              Pošalji jasne fotografije sebe i obe strane lične karte ili
+              pasoša.
             </FieldDescription>
             {/* <Errors>{errors.document}</Errors> */}
           </Field>
 
-
           <Field orientation="horizontal">
             <Checkbox name="terms" className="mr-2" required />
-            <FieldLabel
-              className="font-normal"
-            >Prihvatam uslove korišćenja</FieldLabel>
+            <FieldLabel className="font-normal">
+              Prihvatam uslove korišćenja
+            </FieldLabel>
           </Field>
 
           <Error>{error}</Error>
 
           <Field orientation="horizontal">
-            <Button type="submit">{isLoading ? "Registrujem se..." : "Pošalji registraciju"}</Button>
+            <Button type="submit">
+              {isLoading ? "Registrujem se..." : "Pošalji registraciju"}
+            </Button>
 
             <Link href="/prijava">
               <Button variant="outline" type="button">
@@ -112,10 +104,9 @@ export default function Form() {
                 Registruj se kao čuvar
               </Button>
             </Link>
-
           </Field>
         </FieldGroup>
       </FieldSet>
     </form>
-  )
+  );
 }

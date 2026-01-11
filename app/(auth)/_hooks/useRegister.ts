@@ -2,42 +2,50 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { UserLoginSchema } from "../validations/userLogin";
+import { OwnerRegisterSchema } from "../_validations/ownerRegister";
+import { SitterRegisterSchema } from "../_validations/sitterRegister";
+import { UserRole } from "@/db/types";
 import { authClient } from "@/lib/auth-client";
 import { getAuthErrorMessage } from "@/lib/auth-utils";
 
-export type LoginResult =
+export type RegisterResult =
   | { success: true }
   | { success: false; error?: string };
 
-export function useLogin() {
+export function useRegister() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const login = async (formData: FormData): Promise<LoginResult> => {
+  const register = async (
+    formData: FormData,
+    role: UserRole,
+  ): Promise<RegisterResult> => {
     setIsLoading(true);
     setError(null);
 
+    const schema =
+      role === UserRole.OWNER ? OwnerRegisterSchema : SitterRegisterSchema;
     const values = Object.fromEntries(formData.entries());
 
-    const parsed = UserLoginSchema.safeParse(values);
+    const parsed = schema.safeParse(values);
+
     if (!parsed.success) {
       setIsLoading(false);
       setError("Polja nisu pravilno unesena");
-      return { success: false, error: "Polja nisu pravilno unesena" }
+      return { success: false, error: "Polja nisu pravilno unesena" };
     }
 
-    const { email, password } = parsed.data;
+    const { email, password, name } = parsed.data;
 
     try {
-      await authClient.signIn.email(
-        { email, password },
+      await authClient.signUp.email(
+        { email, password, name, role },
         {
           onRequest: () => setIsLoading(true),
           onSuccess: () => router.push("/oglasi"),
           onError: (ctx) => setError(getAuthErrorMessage(ctx.error.code)),
-        }
+        },
       );
 
       setIsLoading(false);
@@ -49,5 +57,5 @@ export function useLogin() {
     }
   };
 
-  return { login, isLoading, error, setError };
+  return { register, isLoading, error, setError };
 }

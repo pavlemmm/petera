@@ -9,11 +9,37 @@ import {
   timestamp,
   pgEnum,
   index,
+  customType,
 } from "drizzle-orm/pg-core";
+
+
+// WHILE THEY FIX BYTEA IMPORT
+export const bytea = customType<{ data: Buffer }>({
+  dataType() {
+    return "bytea";
+  },
+  toDriver(value) {
+    return value;
+  },
+  fromDriver(value) {
+    // najčešće node-postgres vraća Buffer
+    if (Buffer.isBuffer(value)) return value;
+
+    // neki drajveri mogu vratiti hex string tipa "\\xDEADBEEF"
+    if (typeof value === "string" && value.startsWith("\\x")) {
+      return Buffer.from(value.slice(2), "hex");
+    }
+
+    // fallback
+    return value as Buffer;
+  },
+});
+
 
 // ENUMS ==============================
 
 export const userRole = pgEnum("user_role", ["OWNER", "SITTER"]);
+export const city = pgEnum("city", ["BEOGRAD", "NOVI_SAD", "NIS", "KRAGUJEVAC", "SUBOTICA"]);
 export const petType = pgEnum("pet_type", ["DOG", "CAT", "BIRD", "OTHER"]);
 export const bookingStatus = pgEnum("booking_status", [
   "PENDING",
@@ -28,7 +54,7 @@ export const user = pgTable("user", {
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
-  image: text("image"),
+  // image: text("image"),
   role: userRole("role").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
@@ -55,8 +81,21 @@ export const listing = pgTable("listing", {
     .references(() => sitter.id, { onDelete: "cascade" }),
   title: text("title").notNull(),
   description: text("description").notNull(),
-  city: text("city").notNull(),
+  city: city("city").notNull(),
   pricePerDay: numeric("price_per_day", { precision: 10, scale: 2 }).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// LISTINGS IMAGE ====================
+
+export const listingImage = pgTable("listing_image", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  listingId: uuid("listing_id")
+    .notNull()
+    .references(() => listing.id, { onDelete: "cascade" }),
+  image: bytea("image").notNull(),
+  mimeType: text("mime_type").notNull(),
+  order: integer("order").notNull(), // 0,1,2
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

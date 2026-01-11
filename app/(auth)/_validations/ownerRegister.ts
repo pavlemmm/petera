@@ -5,7 +5,10 @@ export const OwnerRegisterSchema = z.object({
   email: z.email("Unesite validan email."),
   password: z.string().min(8, "Šifra mora imati bar 8 karaktera."),
   confirmPassword: z.string(),
-  terms: z.boolean().refine(v => v === true, "Morate prihvatiti uslove."),
+  terms: z.preprocess(
+    (v) => v === "on",
+    z.literal(true, { message: "Morate prihvatiti uslove." })
+  ),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Šifre se ne poklapaju.",
   path: ["confirmPassword"],

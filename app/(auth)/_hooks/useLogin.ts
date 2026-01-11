@@ -2,45 +2,42 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { OwnerRegisterSchema } from "../validations/ownerRegister";
-import { SitterRegisterSchema } from "../validations/sitterRegister";
-import { UserRole } from "@/db/types";
+import { UserLoginSchema } from "../_validations/userLogin";
 import { authClient } from "@/lib/auth-client";
 import { getAuthErrorMessage } from "@/lib/auth-utils";
 
-export type RegisterResult =
+export type LoginResult =
   | { success: true }
   | { success: false; error?: string };
 
-export function useRegister() {
+export function useLogin() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
-  const register = async (formData: FormData, role: UserRole): Promise<RegisterResult> => {
+  const login = async (formData: FormData): Promise<LoginResult> => {
     setIsLoading(true);
     setError(null);
 
-    const schema = role === UserRole.OWNER ? OwnerRegisterSchema : SitterRegisterSchema;
     const values = Object.fromEntries(formData.entries());
 
-    const parsed = schema.safeParse(values);
+    const parsed = UserLoginSchema.safeParse(values);
     if (!parsed.success) {
       setIsLoading(false);
       setError("Polja nisu pravilno unesena");
-      return { success: false, error: "Polja nisu pravilno unesena" }
+      return { success: false, error: "Polja nisu pravilno unesena" };
     }
 
-    const { email, password, name } = parsed.data;
+    const { email, password } = parsed.data;
 
     try {
-      await authClient.signUp.email(
-        { email, password, name, role },
+      await authClient.signIn.email(
+        { email, password },
         {
           onRequest: () => setIsLoading(true),
           onSuccess: () => router.push("/oglasi"),
           onError: (ctx) => setError(getAuthErrorMessage(ctx.error.code)),
-        }
+        },
       );
 
       setIsLoading(false);
@@ -52,5 +49,5 @@ export function useRegister() {
     }
   };
 
-  return { register, isLoading, error, setError };
+  return { login, isLoading, error, setError };
 }
