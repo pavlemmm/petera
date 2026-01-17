@@ -8,7 +8,7 @@ type ListingGridProps = {
 
 export default function ListingGrid({ listings }: ListingGridProps) {
   if (listings.length === 0) return (
-    <Section className="bg-white/70 text-center">
+    <Section className="bg-white/70 text-center items-start">
       <h3 className="text-lg font-semibold">Nema oglasa</h3>
       <p className="text-sm text-muted-foreground mt-2">
         Budi prvi koji će postaviti oglas.
@@ -17,8 +17,8 @@ export default function ListingGrid({ listings }: ListingGridProps) {
   )
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {listings.map(({ id, ...item }) => (
-        <ListingCard key={id} {...item} />
+      {listings.map(listing => (
+        <ListingCard key={listing.id} {...listing} />
       ))}
     </div>
   );

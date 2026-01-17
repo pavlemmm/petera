@@ -1,11 +1,8 @@
 import { z } from "zod";
-import { City, PetType } from "@/db/types";
+import { CityValues, PetValues } from "@/db/types";
 
 const MAX_IMAGES = 3;
 const MAX_IMAGE_SIZE = 2 * 1024 * 1024; // 2MB
-
-const CityValues = Object.values(City) as [City, ...City[]];
-const PetTypeValues = Object.values(PetType) as [PetType, ...PetType[]];
 
 const PriceSchema = z.preprocess(
   (v) => {
@@ -24,7 +21,7 @@ const PetTypesSchema = z.preprocess(
     if (Array.isArray(v)) return v;
     return [];
   },
-  z.array(z.enum(PetTypeValues)).min(1, "Izaberite bar jedan tip.")
+  z.array(z.enum(PetValues)).min(1, "Izaberite bar jedan tip.")
 );
 
 const ImagesSchema = z.preprocess(

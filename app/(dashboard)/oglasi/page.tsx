@@ -30,8 +30,8 @@ export default async function OglasiPage({ searchParams }: OglasiProps) {
         </p>
       </Section>
 
-      <div className="grid gap-6 lg:grid-cols-[20%_1fr]">
-        <Section className="bg-white/70 h-fit lg:sticky lg:top-6">
+      <div className="grid gap-6 lg:grid-cols-[20%_1fr] items-start">
+        <Section className="bg-white/70 lg:sticky lg:top-6">
           <FiltersSidebar filters={filters} />
         </Section>
 

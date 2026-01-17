@@ -17,8 +17,8 @@ import { Textarea } from "@/components/ui/textarea";
 
 import Link from "next/link";
 import { useState } from "react";
-import { City, PetType } from "@/db/types";
-import { CityLabel, PetTypeLabel } from "../_lib/constants";
+import { CityValues, PetValues, type City, type PetType } from "@/db/types";
+import { CityLabel, PetLabel } from "../_lib/constants";
 import {
   Select,
   SelectContent,
@@ -75,7 +75,7 @@ export default function Form() {
                 <SelectValue placeholder="Odaberi grad" />
               </SelectTrigger>
               <SelectContent>
-                {Object.values(City).map((c) => (
+                {CityValues.map((c) => (
                   <SelectItem key={c} value={c}>
                     {CityLabel[c]}
                   </SelectItem>
@@ -127,9 +127,9 @@ export default function Form() {
               spacing={2}
               onValueChange={(v) => setPetTypes(v as PetType[])}
             >
-              {Object.values(PetType).map((type) => (
+              {PetTypeValues.map((type) => (
                 <ToggleGroupItem key={type} value={type}>
-                  {PetTypeLabel[type]}
+                  {PetLabel[type]}
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>

@@ -11,6 +11,7 @@ import {
   index,
   customType,
 } from "drizzle-orm/pg-core";
+import { BookingStatusValues, CityValues, PetValues, UserRoleValues } from "./types";
 
 
 // WHILE THEY FIX BYTEA IMPORT
@@ -38,14 +39,10 @@ export const bytea = customType<{ data: Buffer }>({
 
 // ENUMS ==============================
 
-export const userRole = pgEnum("user_role", ["OWNER", "SITTER"]);
-export const city = pgEnum("city", ["BEOGRAD", "NOVI_SAD", "NIS", "KRAGUJEVAC", "SUBOTICA"]);
-export const petType = pgEnum("pet_type", ["DOG", "CAT", "BIRD", "OTHER"]);
-export const bookingStatus = pgEnum("booking_status", [
-  "PENDING",
-  "CONFIRMED",
-  "CANCELLED",
-]);
+export const userRole = pgEnum("user_role", UserRoleValues);
+export const city = pgEnum("city", CityValues);
+export const petType = pgEnum("pet_type", PetValues);
+export const bookingStatus = pgEnum("booking_status", BookingStatusValues);
 
 // USERS ==============================
 

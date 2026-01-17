@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { City, PetType } from "@/db/types";
+import { CityValues, PetValues, CityType, PetType } from "@/db/types";
 import { Button } from "@/components/ui/button";
 import {
   Field,
@@ -24,11 +24,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { CityLabel, PetTypeLabel } from "../../_lib/constants";
+import { CityLabel, PetLabel } from "../../_lib/constants";
 import type { ListingFilters } from "../_types";
 
-const cityOptions = Object.values(City);
-const petTypeOptions = Object.values(PetType);
+const cityOptions = CityValues;
+const petOptions = PetValues;
 
 type FiltersSidebarProps = {
   filters: ListingFilters;
@@ -36,7 +36,7 @@ type FiltersSidebarProps = {
 
 export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
   const router = useRouter();
-  const [city, setCity] = useState<City | "all">(filters.city ?? "all");
+  const [city, setCity] = useState<CityType | "all">(filters.city ?? "all");
   const [petTypes, setPetTypes] = useState<PetType[]>(filters.petTypes ?? []);
   const [minPrice, setMinPrice] = useState(
     filters.minPrice !== undefined ? String(filters.minPrice) : ""
@@ -72,7 +72,7 @@ export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
             <FieldLabel>Grad</FieldLabel>
             <Select
               value={city}
-              onValueChange={(value) => setCity(value as City | "all")}
+              onValueChange={(value) => setCity(value as CityType | "all")}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Sva mesta" />
@@ -130,9 +130,9 @@ export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
               spacing={2}
               onValueChange={(value) => setPetTypes(value as PetType[])}
             >
-              {petTypeOptions.map((type) => (
+              {petOptions.map((type) => (
                 <ToggleGroupItem key={type} value={type}>
-                  {PetTypeLabel[type]}
+                  {PetLabel[type]}
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>

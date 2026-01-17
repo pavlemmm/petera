@@ -1,8 +1,8 @@
-import { City, PetType } from "@/db/types";
+import { CityValues, PetValues } from "@/db/types";
 import { z } from "zod";
 import type { ListingFilters, SearchParams } from "../_types";
 
-const citySchema = z.enum(City).optional()
+const citySchema = z.enum(CityValues).optional();
 
 const priceSchema = z.preprocess((value) => {
   if (value === "" || value === undefined || value === null) return undefined;
@@ -10,7 +10,7 @@ const priceSchema = z.preprocess((value) => {
   return Number.isNaN(parsed) ? undefined : parsed;
 }, z.number().min(0).optional());
 
-const petTypesSchema = z.array(z.enum(PetType)).optional();
+const petTypesSchema = z.array(z.enum(PetValues)).optional();
 
 const filtersSchema = z.object({
   city: citySchema,
@@ -19,9 +19,10 @@ const filtersSchema = z.object({
   petType: petTypesSchema,
 });
 
-export function parseListingFilters(searchParams: SearchParams): ListingFilters {
-  console.log(searchParams)
-  const parsed = filtersSchema.safeParse(searchParams);
+export function parseListingFilters(
+  searchParams?: SearchParams
+): ListingFilters {
+  const parsed = filtersSchema.safeParse(searchParams ?? {});
   if (!parsed.success) {
     return {};
   }

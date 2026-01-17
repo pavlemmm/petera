@@ -1,11 +1,9 @@
 import { db } from "@/db/db";
 import { listing, listingImage, listingPetType, review } from "@/db/schema";
 import { and, desc, eq, gte, inArray, lte, sql, type SQL } from "drizzle-orm";
-import type { ListingFilters, ListingSummary } from "../_types";
+import type { ListingFilters, Listing } from "../_types";
 
-export async function getListings(
-  filters?: ListingFilters
-): Promise<ListingSummary[]> {
+export async function getListings(filters?: ListingFilters): Promise<Listing[]> {
   const conditions: SQL[] = [];
 
   if (filters?.city) {

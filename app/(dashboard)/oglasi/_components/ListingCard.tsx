@@ -10,8 +10,6 @@ import { Button } from "@/components/ui/button";
 import { CityLabel } from "../../_lib/constants";
 import type { Listing } from "../_types";
 
-type ListingCardProps = Omit<Listing, "id">;
-
 function formatPrice(pricePerDay: string | number) {
   const value =
     typeof pricePerDay === "number" ? pricePerDay : Number(pricePerDay);
@@ -25,6 +23,7 @@ function excerpt(text: string, max = 140) {
 }
 
 export default function ListingCard({
+  id,
   title,
   description,
   city,
@@ -33,7 +32,7 @@ export default function ListingCard({
   imageMimeType,
   ratingAverage,
   reviewCount,
-}: ListingCardProps) {
+}: Listing) {
   const imageSrc =
     image && imageMimeType
       ? `data:${imageMimeType};base64,${Buffer.from(image).toString("base64")}`
@@ -41,20 +40,20 @@ export default function ListingCard({
 
   return (
     <Card className="bg-white/80">
-      <div className="overflow-hidden rounded-t-xl">
-        {imageSrc ? (
-          <img
-            src={imageSrc}
-            alt={title}
-            className="h-40 w-full object-cover"
-          />
-        ) : (
-          <div className="flex h-40 w-full items-center justify-center bg-muted text-sm text-muted-foreground">
-            Bez slike
-          </div>
-        )}
-      </div>
       <CardHeader>
+        <div className="overflow-hidden rounded-t-xl">
+          {imageSrc ? (
+            <img
+              src={imageSrc}
+              alt={title}
+              className="h-40 w-full object-cover"
+            />
+          ) : (
+            <div className="flex h-40 w-full items-center justify-center bg-muted text-sm text-muted-foreground">
+              Bez slike
+            </div>
+          )}
+        </div>
         <CardTitle className="text-lg">{title}</CardTitle>
         <CardDescription>{CityLabel[city]}</CardDescription>
       </CardHeader>
@@ -68,7 +67,7 @@ export default function ListingCard({
         </p>
       </CardContent>
       <CardFooter>
-        <Button variant="outline">Pogledaj detalje</Button>
+        <Button variant="outline">Pogledaj</Button>
       </CardFooter>
     </Card>
   );
