@@ -37,7 +37,7 @@ type FiltersSidebarProps = {
 export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
   const router = useRouter();
   const [city, setCity] = useState<CityType | "all">(filters.city ?? "all");
-  const [pets, setPets] = useState<PetType[]>(filters.pets ?? []);
+  const [pets, setPets] = useState<PetType[]>(filters.pet ?? []);
   const [minPrice, setMinPrice] = useState(
     filters.minPrice !== undefined ? String(filters.minPrice) : ""
   );
@@ -51,7 +51,7 @@ export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
     if (city !== "all") params.set("city", city);
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
-    if (pets.length > 0) params.set("pets", pets);
+    pets.forEach((pet) => params.append("pet", pet));
     const query = params.toString();
     router.push(query ? `/oglasi?${query}` : "/oglasi");
   }
@@ -147,7 +147,7 @@ export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
             >
               Poništi
             </Button>
-            <Button type="submit">Primeni filtere</Button>
+            <Button type="submit">Pretraži</Button>
           </Field>
         </FieldGroup>
       </FieldSet>

@@ -10,13 +10,19 @@ const priceSchema = z.preprocess((value) => {
   return Number.isNaN(parsed) ? undefined : parsed;
 }, z.number().min(0).optional());
 
-const petSchema = z.array(z.enum(PetValues)).optional();
+const petSchema = z.preprocess(
+  (v) => {
+    if (v == null) return undefined;
+    return Array.isArray(v) ? v : [v];
+  },
+  z.array(z.enum(PetValues)).optional()
+);
 
 const filtersSchema = z.object({
   city: citySchema,
   minPrice: priceSchema,
   maxPrice: priceSchema,
-  pets: petSchema,
+  pet: petSchema,
 });
 
 export function parseListingFilters(searchParams?: SearchParams): ListingFilters {
@@ -30,6 +36,6 @@ export function parseListingFilters(searchParams?: SearchParams): ListingFilters
     city: parsed.data.city,
     minPrice: parsed.data.minPrice,
     maxPrice: parsed.data.maxPrice,
-    pets: parsed.data.pets,
+    pet: parsed.data.pet,
   };
 }

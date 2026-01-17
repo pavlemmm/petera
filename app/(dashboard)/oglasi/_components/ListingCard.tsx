@@ -39,7 +39,7 @@ export default function ListingCard({
       : null;
 
   return (
-    <Card className="bg-white/80">
+    <Card className="bg-white/80 hover:bg-orange-200 transition-colors duration-300">
       <CardHeader>
         <div className="overflow-hidden rounded-t-xl">
           {imageSrc ? (
@@ -66,9 +66,6 @@ export default function ListingCard({
             : "Nema recenzija"}
         </p>
       </CardContent>
-      <CardFooter>
-        <Button variant="outline">Pogledaj</Button>
-      </CardFooter>
     </Card>
   );
 }
