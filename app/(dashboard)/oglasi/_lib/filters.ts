@@ -1,46 +1,35 @@
 import { City, PetType } from "@/db/types";
-import type { ListingFilters } from "../_actions/get-listings";
+import { z } from "zod";
+import type { ListingFilters, SearchParams } from "../_types";
 
-export type SearchParams = {
-  [key: string]: string | string[] | undefined;
-};
+const citySchema = z.enum(City).optional()
 
-function parseNumber(value?: string | string[]) {
-  const raw = Array.isArray(value) ? value[0] : value;
-  if (!raw) return undefined;
-  const parsed = Number(raw);
-  if (Number.isNaN(parsed)) return undefined;
-  return parsed;
-}
+const priceSchema = z.preprocess((value) => {
+  if (value === "" || value === undefined || value === null) return undefined;
+  const parsed = Number(value);
+  return Number.isNaN(parsed) ? undefined : parsed;
+}, z.number().min(0).optional());
 
-export function parseListingFilters(searchParams?: SearchParams): ListingFilters {
-  const cityParam = searchParams?.city;
-  const minPrice = parseNumber(searchParams?.minPrice);
-  const maxPrice = parseNumber(searchParams?.maxPrice);
-  const minRating = parseNumber(searchParams?.minRating);
-  const petTypeParam = searchParams?.petType;
+const petTypesSchema = z.array(z.enum(PetType)).optional();
 
-  const cityValues = new Set(Object.values(City));
-  const city =
-    typeof cityParam === "string" && cityValues.has(cityParam as City)
-      ? (cityParam as City)
-      : undefined;
+const filtersSchema = z.object({
+  city: citySchema,
+  minPrice: priceSchema,
+  maxPrice: priceSchema,
+  petType: petTypesSchema,
+});
 
-  const petTypesRaw = Array.isArray(petTypeParam)
-    ? petTypeParam
-    : petTypeParam
-      ? [petTypeParam]
-      : [];
-  const petTypeValues = new Set(Object.values(PetType));
-  const petTypes = petTypesRaw.filter((value): value is PetType =>
-    petTypeValues.has(value as PetType)
-  );
+export function parseListingFilters(searchParams: SearchParams): ListingFilters {
+  console.log(searchParams)
+  const parsed = filtersSchema.safeParse(searchParams);
+  if (!parsed.success) {
+    return {};
+  }
 
   return {
-    city,
-    minPrice,
-    maxPrice,
-    minRating,
-    petTypes,
+    city: parsed.data.city,
+    minPrice: parsed.data.minPrice,
+    maxPrice: parsed.data.maxPrice,
+    petTypes: parsed.data.petType,
   };
 }

@@ -8,18 +8,9 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { CityLabel } from "../../_lib/constants";
+import type { Listing } from "../_types";
 
-type ListingCardProps = {
-  id: string;
-  title: string;
-  description: string;
-  city: keyof typeof CityLabel;
-  pricePerDay: string | number;
-  image: Buffer | null;
-  imageMimeType: string | null;
-  ratingAverage: number | null;
-  reviewCount: number;
-};
+type ListingCardProps = Omit<Listing, "id">;
 
 function formatPrice(pricePerDay: string | number) {
   const value =

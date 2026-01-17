@@ -1,124 +1,156 @@
 "use client";
 
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useState, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { City, PetType } from "@/db/types";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+} from "@/components/ui/field";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupText,
+} from "@/components/ui/input-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { CityLabel, PetTypeLabel } from "../../_lib/constants";
+import type { ListingFilters } from "../_types";
 
-function getNumberParam(
-  params: URLSearchParams,
-  key: string
-): string | undefined {
-  const value = params.get(key);
-  if (!value) return undefined;
-  return value;
-}
+const cityOptions = Object.values(City);
+const petTypeOptions = Object.values(PetType);
 
-export default function FiltersSidebar() {
-  const searchParams = useSearchParams();
+type FiltersSidebarProps = {
+  filters: ListingFilters;
+};
 
-  const city = searchParams.get("city") ?? "";
-  const minPrice = getNumberParam(searchParams, "minPrice") ?? "";
-  const maxPrice = getNumberParam(searchParams, "maxPrice") ?? "";
-  const minRating = getNumberParam(searchParams, "minRating") ?? "";
-  const petTypes = new Set(searchParams.getAll("petType"));
+export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
+  const router = useRouter();
+  const [city, setCity] = useState<City | "all">(filters.city ?? "all");
+  const [petTypes, setPetTypes] = useState<PetType[]>(filters.petTypes ?? []);
+  const [minPrice, setMinPrice] = useState(
+    filters.minPrice !== undefined ? String(filters.minPrice) : ""
+  );
+  const [maxPrice, setMaxPrice] = useState(
+    filters.maxPrice !== undefined ? String(filters.maxPrice) : ""
+  );
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const params = new URLSearchParams();
+    if (city !== "all") params.set("city", city);
+    if (minPrice) params.set("minPrice", minPrice);
+    if (maxPrice) params.set("maxPrice", maxPrice);
+    petTypes.forEach((type) => params.append("petType", type));
+    const query = params.toString();
+    router.push(query ? `/oglasi?${query}` : "/oglasi");
+  }
+
+  function handleReset() {
+    setCity("all");
+    setPetTypes([]);
+    setMinPrice("");
+    setMaxPrice("");
+    router.push("/oglasi");
+  }
 
   return (
-    <form className="space-y-6" method="get">
-      <div className="space-y-2">
-        <label htmlFor="city" className="text-sm font-semibold">
-          Mesto
-        </label>
-        <select
-          id="city"
-          name="city"
-          defaultValue={city}
-          className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs"
-        >
-          <option value="">Sva mesta</option>
-          {Object.values(City).map((value) => (
-            <option key={value} value={value}>
-              {CityLabel[value]}
-            </option>
-          ))}
-        </select>
-      </div>
+    <form onSubmit={handleSubmit}>
+      <FieldSet>
+        <FieldGroup>
+          <Field>
+            <FieldLabel>Grad</FieldLabel>
+            <Select
+              value={city}
+              onValueChange={(value) => setCity(value as City | "all")}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Sva mesta" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Sva mesta</SelectItem>
+                {cityOptions.map((value) => (
+                  <SelectItem key={value} value={value}>
+                    {CityLabel[value]}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </Field>
 
-      <div className="space-y-2">
-        <label htmlFor="minPrice" className="text-sm font-semibold">
-          Cena od
-        </label>
-        <Input
-          id="minPrice"
-          name="minPrice"
-          type="number"
-          min="0"
-          step="1"
-          defaultValue={minPrice}
-          placeholder="RSD"
-        />
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="maxPrice" className="text-sm font-semibold">
-          Cena do
-        </label>
-        <Input
-          id="maxPrice"
-          name="maxPrice"
-          type="number"
-          min="0"
-          step="1"
-          defaultValue={maxPrice}
-          placeholder="RSD"
-        />
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="minRating" className="text-sm font-semibold">
-          Recenzije
-        </label>
-        <select
-          id="minRating"
-          name="minRating"
-          defaultValue={minRating}
-          className="h-9 w-full rounded-md border border-input bg-transparent px-3 text-sm shadow-xs"
-        >
-          <option value="">Sve ocene</option>
-          {[5, 4, 3, 2, 1].map((rating) => (
-            <option key={rating} value={rating}>
-              {rating}+ ocena
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="space-y-2">
-        <p className="text-sm font-semibold">Tip ljubimca</p>
-        <div className="flex flex-col gap-2">
-          {Object.values(PetType).map((value) => (
-            <label key={value} className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                name="petType"
-                value={value}
-                defaultChecked={petTypes.has(value)}
-                className="h-4 w-4 rounded border border-input"
+          <Field>
+            <FieldLabel>Cena od</FieldLabel>
+            <InputGroup>
+              <InputGroupInput
+                type="number"
+                min="0"
+                step="1"
+                value={minPrice}
+                onChange={(event) => setMinPrice(event.target.value)}
               />
-              {PetTypeLabel[value]}
-            </label>
-          ))}
-        </div>
-      </div>
+              <InputGroupAddon align="inline-end">
+                <InputGroupText>RSD</InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
+          </Field>
 
-      <div className="flex flex-wrap items-center gap-3">
-        <Button type="submit">Primeni filtere</Button>
-        <Link href="/oglasi" className="text-sm text-muted-foreground">
-          Resetuj filtere
-        </Link>
-      </div>
+          <Field>
+            <FieldLabel>Cena do</FieldLabel>
+            <InputGroup>
+              <InputGroupInput
+                type="number"
+                min="0"
+                step="1"
+                value={maxPrice}
+                onChange={(event) => setMaxPrice(event.target.value)}
+              />
+              <InputGroupAddon align="inline-end">
+                <InputGroupText>RSD</InputGroupText>
+              </InputGroupAddon>
+            </InputGroup>
+          </Field>
+
+          <Field>
+            <FieldLabel>Tip ljubimca</FieldLabel>
+            <ToggleGroup
+              type="multiple"
+              value={petTypes}
+              className="grid grid-cols-2"
+              variant="outline"
+              spacing={2}
+              onValueChange={(value) => setPetTypes(value as PetType[])}
+            >
+              {petTypeOptions.map((type) => (
+                <ToggleGroupItem key={type} value={type}>
+                  {PetTypeLabel[type]}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+          </Field>
+
+          <Field>
+            <Button
+              variant="outline"
+              type="button"
+              className="w-full"
+              onClick={handleReset}
+            >
+              Poništi
+            </Button>
+            <Button type="submit">Primeni filtere</Button>
+          </Field>
+        </FieldGroup>
+      </FieldSet>
     </form>
   );
 }

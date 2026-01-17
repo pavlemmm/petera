@@ -1,29 +1,23 @@
 import { db } from "@/db/db";
 import { listing, listingImage, listingPetType, review } from "@/db/schema";
-import { City, PetType } from "@/db/types";
-import { and, desc, eq, gte, inArray, lte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, inArray, lte, sql, type SQL } from "drizzle-orm";
+import type { ListingFilters, ListingSummary } from "../_types";
 
-export type ListingFilters = {
-  city?: City;
-  minPrice?: number;
-  maxPrice?: number;
-  minRating?: number;
-  petTypes?: PetType[];
-};
-
-export async function getListings(filters?: ListingFilters) {
-  const conditions = [];
+export async function getListings(
+  filters?: ListingFilters
+): Promise<ListingSummary[]> {
+  const conditions: SQL[] = [];
 
   if (filters?.city) {
     conditions.push(eq(listing.city, filters.city));
   }
 
   if (filters?.minPrice !== undefined) {
-    conditions.push(gte(listing.pricePerDay, filters.minPrice.toString()));
+    conditions.push(gte(listing.pricePerDay, filters.minPrice.toFixed(2)));
   }
 
   if (filters?.maxPrice !== undefined) {
-    conditions.push(lte(listing.pricePerDay, filters.maxPrice.toString()));
+    conditions.push(lte(listing.pricePerDay, filters.maxPrice.toFixed(2)));
   }
 
   if (filters?.petTypes && filters.petTypes.length > 0) {
@@ -64,10 +58,6 @@ export async function getListings(filters?: ListingFilters) {
       listingImage.mimeType
     )
     .orderBy(desc(listing.createdAt));
-
-  if (filters?.minRating !== undefined) {
-    return query.having(sql`avg(${review.rating}) >= ${filters.minRating}`);
-  }
 
   return query;
 }

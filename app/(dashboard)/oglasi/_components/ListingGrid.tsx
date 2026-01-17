@@ -1,36 +1,24 @@
 import ListingCard from "./ListingCard";
-import { City } from "@/db/types";
+import type { Listing } from "../_types";
+import Section from "@/components/section";
 
 type ListingGridProps = {
-  listings: Array<{
-    id: string;
-    title: string;
-    description: string;
-    city: City;
-    pricePerDay: string | number;
-    image: Buffer | null;
-    imageMimeType: string | null;
-    ratingAverage: number | null;
-    reviewCount: number;
-  }>;
+  listings: Listing[];
 };
 
 export default function ListingGrid({ listings }: ListingGridProps) {
+  if (listings.length === 0) return (
+    <Section className="bg-white/70 text-center">
+      <h3 className="text-lg font-semibold">Nema oglasa</h3>
+      <p className="text-sm text-muted-foreground mt-2">
+        Budi prvi koji će postaviti oglas.
+      </p>
+    </Section>
+  )
   return (
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {listings.map((item) => (
-        <ListingCard
-          key={item.id}
-          id={item.id}
-          title={item.title}
-          description={item.description}
-          city={item.city}
-          pricePerDay={item.pricePerDay}
-          image={item.image}
-          imageMimeType={item.imageMimeType}
-          ratingAverage={item.ratingAverage}
-          reviewCount={item.reviewCount}
-        />
+      {listings.map(({ id, ...item }) => (
+        <ListingCard key={id} {...item} />
       ))}
     </div>
   );

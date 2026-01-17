@@ -1,9 +1,10 @@
-import { sitter, user } from "./schema";
+import { listing, sitter, user } from "./schema";
 
 import type { InferSelectModel } from "drizzle-orm";
 
 export type User = InferSelectModel<typeof user>;
 export type Sitter = InferSelectModel<typeof sitter>;
+export type Listing = InferSelectModel<typeof listing>;
 
 export enum UserRole { OWNER = "OWNER", SITTER = "SITTER" }
 export enum PetType { DOG = "DOG", CAT = "CAT", BIRD = "BIRD", OTHER = "OTHER" }
