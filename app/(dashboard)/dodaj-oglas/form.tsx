@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 import Link from "next/link";
 import { useState } from "react";
-import { CityValues, PetValues, type City, type PetType } from "@/db/types";
+import { CityValues, PetValues, type CityType, type PetType } from "@/db/types";
 import { CityLabel, PetLabel } from "../_lib/constants";
 import {
   Select,
@@ -35,8 +35,8 @@ import {
 import { useCreateListing } from "./_hooks/useCreateListing";
 
 export default function Form() {
-  const [petTypes, setPetTypes] = useState<PetType[]>([]);
-  const [city, setCity] = useState<City | "">("");
+  const [pets, setPets] = useState<PetType[]>([]);
+  const [city, setCity] = useState<CityType | "">("");
   const { create, isLoading, error, setError } = useCreateListing();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,7 +69,7 @@ export default function Form() {
             <FieldLabel>Grad</FieldLabel>
             <Select
               value={city}
-              onValueChange={(value) => setCity(value as City)}
+              onValueChange={(value) => setCity(value as CityType)}
             >
               <SelectTrigger>
                 <SelectValue placeholder="Odaberi grad" />
@@ -122,18 +122,18 @@ export default function Form() {
 
             <ToggleGroup
               type="multiple"
-              value={petTypes}
+              value={pets}
               variant="outline"
               spacing={2}
-              onValueChange={(v) => setPetTypes(v as PetType[])}
+              onValueChange={(v) => setPets(v as PetType[])}
             >
-              {PetTypeValues.map((type) => (
+              {PetValues.map((type) => (
                 <ToggleGroupItem key={type} value={type}>
                   {PetLabel[type]}
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>
-            <input type="hidden" name="petTypes" value={petTypes.join(",")} />
+            <input type="hidden" name="petTypes" value={pets.join(",")} />
 
             <FieldDescription>Možete izabrati više opcija.</FieldDescription>
           </Field>

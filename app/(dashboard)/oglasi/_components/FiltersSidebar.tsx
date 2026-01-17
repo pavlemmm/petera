@@ -37,7 +37,7 @@ type FiltersSidebarProps = {
 export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
   const router = useRouter();
   const [city, setCity] = useState<CityType | "all">(filters.city ?? "all");
-  const [petTypes, setPetTypes] = useState<PetType[]>(filters.petTypes ?? []);
+  const [pets, setPets] = useState<PetType[]>(filters.pets ?? []);
   const [minPrice, setMinPrice] = useState(
     filters.minPrice !== undefined ? String(filters.minPrice) : ""
   );
@@ -51,14 +51,14 @@ export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
     if (city !== "all") params.set("city", city);
     if (minPrice) params.set("minPrice", minPrice);
     if (maxPrice) params.set("maxPrice", maxPrice);
-    petTypes.forEach((type) => params.append("petType", type));
+    if (pets.length > 0) params.set("pets", pets);
     const query = params.toString();
     router.push(query ? `/oglasi?${query}` : "/oglasi");
   }
 
   function handleReset() {
     setCity("all");
-    setPetTypes([]);
+    setPets([]);
     setMinPrice("");
     setMaxPrice("");
     router.push("/oglasi");
@@ -124,11 +124,11 @@ export default function FiltersSidebar({ filters }: FiltersSidebarProps) {
             <FieldLabel>Tip ljubimca</FieldLabel>
             <ToggleGroup
               type="multiple"
-              value={petTypes}
+              value={pets}
               className="grid grid-cols-2"
               variant="outline"
               spacing={2}
-              onValueChange={(value) => setPetTypes(value as PetType[])}
+              onValueChange={(value) => setPets(value as PetType[])}
             >
               {petOptions.map((type) => (
                 <ToggleGroupItem key={type} value={type}>

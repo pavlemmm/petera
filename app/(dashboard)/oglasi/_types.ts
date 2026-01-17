@@ -7,7 +7,7 @@ export type ListingFilters = {
   city?: CityType;
   minPrice?: number;
   maxPrice?: number;
-  petTypes?: PetType[];
+  pets?: PetType[];
 };
 
 export type Listing = {

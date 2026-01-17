@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db/db";
-import { listing, listingImage, listingPetType } from "@/db/schema";
+import { listing, listingImage, listingPet } from "@/db/schema";
 import { requireAuth } from "@/lib/auth-server-helper";
 import { UserRole } from "@/db/types";
 import { PostSchema } from "../_validations/listing";
@@ -47,7 +47,7 @@ export async function createListing(
         })
         .returning({ id: listing.id });
 
-      await tx.insert(listingPetType).values(
+      await tx.insert(listingPet).values(
         petTypes.map((petType) => ({
           listingId: created.id,
           petType,

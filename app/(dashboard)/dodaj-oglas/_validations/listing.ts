@@ -13,7 +13,7 @@ const PriceSchema = z.preprocess(
   z.number().positive("Cena mora biti veća od 0.")
 );
 
-const PetTypesSchema = z.preprocess(
+const PetSchema = z.preprocess(
   (v) => {
     if (typeof v === "string") {
       return v.split(",").map((item) => item.trim()).filter(Boolean);
@@ -44,6 +44,6 @@ export const PostSchema = z.object({
   description: z.string().min(8, "Opis mora imati bar 8 karaktera."),
   city: z.enum(CityValues, { message: "Odaberite grad." }),
   price: PriceSchema,
-  petTypes: PetTypesSchema,
+  pet: PetSchema,
   images: ImagesSchema,
 });

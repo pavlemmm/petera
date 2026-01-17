@@ -1,5 +1,5 @@
 import { db } from "@/db/db";
-import { listing, listingImage, listingPetType, review } from "@/db/schema";
+import { listing, listingImage, listingPet, review } from "@/db/schema";
 import { and, desc, eq, gte, inArray, lte, sql, type SQL } from "drizzle-orm";
 import type { ListingFilters, Listing } from "../_types";
 
@@ -18,12 +18,12 @@ export async function getListings(filters?: ListingFilters): Promise<Listing[]> 
     conditions.push(lte(listing.pricePerDay, filters.maxPrice.toFixed(2)));
   }
 
-  if (filters?.petTypes && filters.petTypes.length > 0) {
-    const petTypeSubquery = db
-      .select({ listingId: listingPetType.listingId })
-      .from(listingPetType)
-      .where(inArray(listingPetType.petType, filters.petTypes));
-    conditions.push(inArray(listing.id, petTypeSubquery));
+  if (filters?.pet && filters.pet.length > 0) {
+    const petSubquery = db
+      .select({ listingId: listingPet.listingId })
+      .from(listingPet)
+      .where(inArray(listingPet.pet, filters.pet));
+    conditions.push(inArray(listing.id, petSubquery));
   }
 
   const query = db

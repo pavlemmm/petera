@@ -1,4 +1,4 @@
-import type { City, PetType } from "@/db/types";
+import type { CityType, PetType } from "@/db/types";
 
 export const PetLabel: Record<PetType, string> = {
   DOG: "Pas 🐶",
@@ -7,7 +7,7 @@ export const PetLabel: Record<PetType, string> = {
   OTHER: "Ostalo 🐾",
 };
 
-export const CityLabel: Record<City, string> = {
+export const CityLabel: Record<CityType, string> = {
   BEOGRAD: "Beograd",
   NOVI_SAD: "Novi Sad",
   NIS: "Niš",

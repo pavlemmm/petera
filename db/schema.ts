@@ -41,7 +41,7 @@ export const bytea = customType<{ data: Buffer }>({
 
 export const userRole = pgEnum("user_role", UserRoleValues);
 export const city = pgEnum("city", CityValues);
-export const petType = pgEnum("pet_type", PetValues);
+export const pet = pgEnum("pet", PetValues);
 export const bookingStatus = pgEnum("booking_status", BookingStatusValues);
 
 // USERS ==============================
@@ -96,14 +96,14 @@ export const listingImage = pgTable("listing_image", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-// LISTING PET TYPE ==================
+// LISTING PET ==================
 
-export const listingPetType = pgTable("listing_pet_type", {
+export const listingPet = pgTable("listing_pet", {
   id: uuid("id").defaultRandom().primaryKey(),
   listingId: uuid("listing_id")
     .notNull()
     .references(() => listing.id, { onDelete: "cascade" }),
-  petType: petType("pet_type").notNull(),
+  pet: pet("pet").notNull(),
 });
 
 // REVIEWS ============================
