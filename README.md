@@ -1,30 +1,30 @@
-# Petera
+# 🐾 Petera
 
-Petera je web platforma koja povezuje vlasnike kućnih ljubimaca i čuvare, tako da se pouzdana briga dogovori brzo i jasno. Fokus je na transparentnim informacijama, lakom poređenju i jednostavnoj rezervaciji.
+Petera is a web platform that connects pet owners with caregivers, making reliable pet care easy to find, compare, and book. The focus is on clear information, fast filtering, and straightforward reservations.
 
-## Problem koji rešavamo
+## The problem
 
-Vlasnici kućnih ljubimaca često nemaju siguran i pregledan način da pronađu pouzdanog čuvara. Informacije su rasute po preporukama i oglasima, a upoređivanje ponuda po ceni, lokaciji i uslugama je sporo i neujednačeno. Sa druge strane, čuvari teško dolaze do novih klijenata i nemaju profesionalno mesto gde mogu jasno da predstave svoje usluge.
+Pet owners often struggle to find trustworthy caregivers in one place. Information is scattered across recommendations and ads, and comparing offers by price, location, and services is time-consuming. On the other side, caregivers lack a professional space to present their services clearly and consistently attract new clients.
 
-## Rešenje koje nudimo
+## The solution
 
-Petera nudi centralizovano mesto za pronalazak i predstavljanje usluga čuvanja, uz jasne oglase i filtriranje po najbitnijim kriterijumima. Vlasnici mogu brzo da pregledaju ponude, uporede usluge i cene, a zatim rezervišu termin. Čuvari dobijaju alat za kreiranje kredibilnog profila i stabilniji tok upita.
+Petera provides a centralized marketplace for pet care, with structured listings and powerful filters. Owners can quickly review offers, compare services and prices, and book a stay. Caregivers get a clear way to showcase their services and build a stable flow of inquiries.
 
-## Ključne funkcionalnosti
+## Key features
 
-- Oglasi čuvara sa opisom, cenom, lokacijom i tipovima ljubimaca
-- Filtriranje po gradu, ceni, vrstama ljubimaca i uslugama
-- Detaljan prikaz oglasa sa fotografijama i podacima o čuvaru
-- Rezervacije sa automatskim obračunom ukupne cene
-- Registracija i prijava za vlasnike i čuvare
-- Verifikacija čuvara kroz upload dokumentacije
+- Caregiver listings with description, price, location, and accepted pet types
+- Filtering by city, price, pet types, and services
+- Detailed listing view with photos and caregiver info
+- Reservations with automatic price calculation
+- Owner and caregiver registration and login
+- Caregiver verification through document upload
 
-## Uloge
+## Roles
 
-- Vlasnik: pretražuje oglase i pravi rezervacije
-- Čuvar: objavljuje oglase i prima rezervacije
+- Owner: browses listings and books reservations
+- Caregiver: publishes listings and receives reservations
 
-## Tehnologije
+## Tech stack
 
 - Next.js 16 (App Router)
 - React 19
@@ -32,18 +32,18 @@ Petera nudi centralizovano mesto za pronalazak i predstavljanje usluga čuvanja,
 - Tailwind CSS 4
 - Drizzle ORM + PostgreSQL
 - better-auth
-- Radix UI
+- shadcn/ui
 
-## Lokalni razvoj
+## Local development
 
-### Preduslovi
+### Prerequisites
 
-- Node.js 18+ (preporuka 20+)
-- PostgreSQL (ili Docker)
+- Node.js 18+ (recommended 20+)
+- PostgreSQL (or Docker)
 
-### Podešavanje okruženja
+### Environment setup
 
-Kreirajte `.env` fajl i podesite vrednosti:
+Create a `.env` file and set values:
 
 ```bash
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/petera
@@ -51,13 +51,13 @@ BETTER_AUTH_SECRET=change-me
 BETTER_AUTH_URL=http://localhost:3000/
 ```
 
-### Pokretanje baze preko Docker-a
+### Start the database with Docker
 
 ```bash
 docker compose up -d
 ```
 
-### Instalacija i pokretanje
+### Install and run
 
 ```bash
 npm install
@@ -65,24 +65,29 @@ npm run db:migrate
 npm run dev
 ```
 
-Aplikacija se podiže na `http://localhost:3000`.
+The app will be available at `http://localhost:3000`.
 
-## Skripte
+## Scripts
 
-- `npm run dev` - pokretanje u razvojnom režimu
-- `npm run build` - build za produkciju
-- `npm run start` - pokretanje produkcijskog build-a
-- `npm run db:generate` - generisanje migracija
-- `npm run db:migrate` - primena migracija
-- `npm run db:push` - direktno usklađivanje šeme sa bazom
+- `npm run dev` - start in development mode
+- `npm run build` - production build
+- `npm run start` - run production build
+- `npm run lint` - eslint check
+- `npm run db:generate` - generate migrations
+- `npm run db:migrate` - run migrations
+- `npm run db:push` - push schema to the database
 - `npm run db:studio` - Drizzle Studio
-- `npm run db:check` - provera migracija
-- `npm run db:drop` - brisanje šeme
+- `npm run db:check` - migration check
+- `npm run db:drop` - drop schema
 
-## Struktura projekta
+## Project structure
 
-- `app/(info)` - info stranice
-- `app/(main)` - oglasi, rezervacije, dodavanje oglasa
-- `app/(auth)` - prijava i registracije
-- `components` - zajedničke UI komponente
-- `db` - schema i migracije
+- `app/(info)` - info pages
+- `app/(main)` - listings, reservations, create listing
+- `app/(auth)` - login and registrations
+- `components` - shared UI components
+- `db` - schema and migrations
+
+## Feature status
+
+- Payments are not active yet (reservations are created without charging)
