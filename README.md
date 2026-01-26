@@ -1,35 +1,88 @@
-# 🐾 Petera Platforma
+# Petera
 
-## 📌 Tema projekta
+Petera je web platforma koja povezuje vlasnike kućnih ljubimaca i čuvare, tako da se pouzdana briga dogovori brzo i jasno. Fokus je na transparentnim informacijama, lakom poređenju i jednostavnoj rezervaciji.
 
-**Petera** je web aplikacija koja povezuje **čuvare kućnih ljubimaca** sa **vlasnicima ljubimaca**.  
-Cilj platforme je da vlasnicima olakša pronalaženje pouzdane osobe koja može da čuva njihove ljubimce, dok čuvarima omogućava da ponude svoje usluge kroz pregledan i profesionalan sistem.
+## Problem koji rešavamo
 
----
+Vlasnici kućnih ljubimaca često nemaju siguran i pregledan način da pronađu pouzdanog čuvara. Informacije su rasute po preporukama i oglasima, a upoređivanje ponuda po ceni, lokaciji i uslugama je sporo i neujednačeno. Sa druge strane, čuvari teško dolaze do novih klijenata i nemaju profesionalno mesto gde mogu jasno da predstave svoje usluge.
 
-## ❗ Problem
+## Rešenje koje nudimo
 
-Vlasnici kućnih ljubimaca se često suočavaju sa sledećim problemima:
+Petera nudi centralizovano mesto za pronalazak i predstavljanje usluga čuvanja, uz jasne oglase i filtriranje po najbitnijim kriterijumima. Vlasnici mogu brzo da pregledaju ponude, uporede usluge i cene, a zatim rezervišu termin. Čuvari dobijaju alat za kreiranje kredibilnog profila i stabilniji tok upita.
 
-- Nema centralizovane i pouzdane platforme gde mogu da pronađu čuvare sa ocenama i iskustvom.
-- Pronalaženje čuvara je često sporo, neprovereno i bazirano na preporukama „od usta do usta“.
-- Teško je uporediti čuvare po ceni, lokaciji i vrsti ljubimaca koje primaju.
-- Vlasnici nemaju uvid u prethodne recenzije ili iskustva drugih korisnika.
-- Čuvari nemaju mesto gde mogu profesionalno da predstave svoje usluge i privuku nove klijente.
+## Ključne funkcionalnosti
 
-Ovi problemi stvaraju nesigurnost, gubljenje vremena i otežavaju donošenje odluke o izboru pravog čuvara.
+- Oglasi čuvara sa opisom, cenom, lokacijom i tipovima ljubimaca
+- Filtriranje po gradu, ceni, vrstama ljubimaca i uslugama
+- Detaljan prikaz oglasa sa fotografijama i podacima o čuvaru
+- Rezervacije sa automatskim obračunom ukupne cene
+- Registracija i prijava za vlasnike i čuvare
+- Verifikacija čuvara kroz upload dokumentacije
 
----
+## Uloge
 
-## ✅ Rešenje
+- Vlasnik: pretražuje oglase i pravi rezervacije
+- Čuvar: objavljuje oglase i prima rezervacije
 
-**Petera** rešava ove probleme pružajući jedinstveno mesto gde se čuvari i vlasnici lako povezuju.  
-Platforma nudi:
+## Tehnologije
 
-- **Profili čuvara** sa opisom, lokacijom, cenom i vrstama ljubimaca koje čuvaju
-- **Oglase čuvara** koje vlasnici mogu pretraživati i filtrirati po gradu, ceni, tipu ljubimca i ocenama
-- **Recenzije i ocene** na osnovu iskustva prošlih vlasnika
-- **Proziran i jednostavan pregled podataka** koji olakšava upoređivanje ponuda
-- **Sigurno okruženje** u kome čuvari i vlasnici grade reputaciju kroz ocene i komentare
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Drizzle ORM + PostgreSQL
+- better-auth
+- Radix UI
 
-Na ovaj način, platforma ubrzava proces pronalaženja pouzdanog čuvara, smanjuje rizik i omogućava jednostavno povezivanje dve strane.
+## Lokalni razvoj
+
+### Preduslovi
+
+- Node.js 18+ (preporuka 20+)
+- PostgreSQL (ili Docker)
+
+### Podešavanje okruženja
+
+Kreirajte `.env` fajl i podesite vrednosti:
+
+```bash
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/petera
+BETTER_AUTH_SECRET=change-me
+BETTER_AUTH_URL=http://localhost:3000/
+```
+
+### Pokretanje baze preko Docker-a
+
+```bash
+docker compose up -d
+```
+
+### Instalacija i pokretanje
+
+```bash
+npm install
+npm run db:migrate
+npm run dev
+```
+
+Aplikacija se podiže na `http://localhost:3000`.
+
+## Skripte
+
+- `npm run dev` - pokretanje u razvojnom režimu
+- `npm run build` - build za produkciju
+- `npm run start` - pokretanje produkcijskog build-a
+- `npm run db:generate` - generisanje migracija
+- `npm run db:migrate` - primena migracija
+- `npm run db:push` - direktno usklađivanje šeme sa bazom
+- `npm run db:studio` - Drizzle Studio
+- `npm run db:check` - provera migracija
+- `npm run db:drop` - brisanje šeme
+
+## Struktura projekta
+
+- `app/(info)` - info stranice
+- `app/(main)` - oglasi, rezervacije, dodavanje oglasa
+- `app/(auth)` - prijava i registracije
+- `components` - zajedničke UI komponente
+- `db` - schema i migracije
