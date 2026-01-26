@@ -11,7 +11,7 @@ import {
   index,
   customType,
 } from "drizzle-orm/pg-core";
-import { BookingStatusValues, CityValues, PetValues, UserRoleValues } from "./types";
+import { BookingStatusValues, CityValues, PetValues, ServiceValues, UserRoleValues } from "./types";
 
 
 // WHILE THEY FIX BYTEA IMPORT
@@ -42,6 +42,7 @@ export const bytea = customType<{ data: Buffer }>({
 export const userRole = pgEnum("user_role", UserRoleValues);
 export const city = pgEnum("city", CityValues);
 export const pet = pgEnum("pet", PetValues);
+export const service = pgEnum("service", ServiceValues);
 export const bookingStatus = pgEnum("booking_status", BookingStatusValues);
 
 // USERS ==============================
@@ -50,6 +51,7 @@ export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
+  phone: text("phone"),
   emailVerified: boolean("email_verified").default(false).notNull(),
   // image: text("image"),
   role: userRole("role").notNull(),
@@ -106,6 +108,16 @@ export const listingPet = pgTable("listing_pet", {
   pet: pet("pet").notNull(),
 });
 
+// LISTING SERVICE ==================
+
+export const listingService = pgTable("listing_service", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  listingId: uuid("listing_id")
+    .notNull()
+    .references(() => listing.id, { onDelete: "cascade" }),
+  service: service("service").notNull(),
+});
+
 // REVIEWS ============================
 
 export const review = pgTable("review", {
@@ -133,6 +145,10 @@ export const booking = pgTable("booking", {
     .references(() => user.id, { onDelete: "cascade" }),
   startDate: text("start_date").notNull(),
   endDate: text("end_date").notNull(),
+  pricePerDay: numeric("price_per_day", { precision: 10, scale: 2 }).notNull(),
+  feeAmount: numeric("fee_amount", { precision: 10, scale: 2 }).notNull(),
+  totalAmount: numeric("total_amount", { precision: 10, scale: 2 }).notNull(),
+  currency: text("currency").default("RSD").notNull(),
   status: bookingStatus("status").default("PENDING"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

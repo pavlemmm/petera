@@ -30,9 +30,9 @@ export default function Form() {
   return (
     <form onSubmit={handleSubmit}>
       <FieldSet>
-        <FieldLegend>Prijavi se</FieldLegend>
+        <FieldLegend>Prijavite se</FieldLegend>
         <FieldDescription>
-          Popuni obrazac sa podacima za prijavu
+          Unesite podatke za prijavu
         </FieldDescription>
 
         <FieldGroup>
@@ -42,7 +42,7 @@ export default function Form() {
           </Field>
 
           <Field>
-            <FieldLabel>Šifra</FieldLabel>
+            <FieldLabel>Lozinka</FieldLabel>
             <Input name="password" type="password" required minLength={8} />
           </Field>
 
@@ -50,17 +50,17 @@ export default function Form() {
 
           <Field orientation="horizontal">
             <Button type="submit">
-              {isLoading ? "Prijavljujem se..." : "Prijavi se"}
+              {isLoading ? "Prijavljivanje..." : "Prijavite se"}
             </Button>
 
             <Link href="/vlasnik-registracija">
               <Button variant="outline" type="button">
-                Registruj se kao vlasnik
+                Registrujte se kao vlasnik
               </Button>
             </Link>
             <Link href="/cuvar-registracija">
               <Button variant="outline" type="button">
-                Registruj se kao čuvar
+                Registrujte se kao čuvar
               </Button>
             </Link>
           </Field>

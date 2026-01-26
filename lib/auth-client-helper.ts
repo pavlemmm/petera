@@ -23,7 +23,7 @@ export function requireNoSession() {
 
 
   if (session) {
-    useRouter().push("/oglasi");
+    useRouter().push("/");
   }
 }
 
@@ -31,7 +31,7 @@ export function getSession() {
   const { data } = authClient.useSession()
   const session = data?.session ?? null
   const user = data?.user ?? null
-  return { session, user, role: user?.role };
+  return { session, user, role: user?.role ?? null };
 }
 
 export function signOut() {

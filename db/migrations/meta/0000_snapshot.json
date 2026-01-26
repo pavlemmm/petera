@@ -1,5 +1,5 @@
 {
-  "id": "7a530e69-2265-47e5-8372-5cc035646194",
+  "id": "c37e1fae-33dc-4f79-8b71-58ceafc812cf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -161,6 +161,31 @@
           "primaryKey": false,
           "notNull": true
         },
+        "price_per_day": {
+          "name": "price_per_day",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "fee_amount": {
+          "name": "fee_amount",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_amount": {
+          "name": "total_amount",
+          "type": "numeric(10, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'RSD'"
+        },
         "status": {
           "name": "status",
           "type": "booking_status",
@@ -243,7 +268,8 @@
         },
         "city": {
           "name": "city",
-          "type": "text",
+          "type": "city",
+          "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
         },
@@ -283,8 +309,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.listing_pet_type": {
-      "name": "listing_pet_type",
+    "public.listing_image": {
+      "name": "listing_image",
       "schema": "",
       "columns": {
         "id": {
@@ -300,9 +326,74 @@
           "primaryKey": false,
           "notNull": true
         },
-        "pet_type": {
-          "name": "pet_type",
-          "type": "pet_type",
+        "image": {
+          "name": "image",
+          "type": "bytea",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "mime_type": {
+          "name": "mime_type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "order": {
+          "name": "order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "listing_image_listing_id_listing_id_fk": {
+          "name": "listing_image_listing_id_listing_id_fk",
+          "tableFrom": "listing_image",
+          "tableTo": "listing",
+          "columnsFrom": [
+            "listing_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.listing_pet": {
+      "name": "listing_pet",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "listing_id": {
+          "name": "listing_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pet": {
+          "name": "pet",
+          "type": "pet",
           "typeSchema": "public",
           "primaryKey": false,
           "notNull": true
@@ -310,9 +401,56 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "listing_pet_type_listing_id_listing_id_fk": {
-          "name": "listing_pet_type_listing_id_listing_id_fk",
-          "tableFrom": "listing_pet_type",
+        "listing_pet_listing_id_listing_id_fk": {
+          "name": "listing_pet_listing_id_listing_id_fk",
+          "tableFrom": "listing_pet",
+          "tableTo": "listing",
+          "columnsFrom": [
+            "listing_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.listing_service": {
+      "name": "listing_service",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "listing_id": {
+          "name": "listing_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "service": {
+          "name": "service",
+          "type": "service",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "listing_service_listing_id_listing_id_fk": {
+          "name": "listing_service_listing_id_listing_id_fk",
+          "tableFrom": "listing_service",
           "tableTo": "listing",
           "columnsFrom": [
             "listing_id"
@@ -569,18 +707,18 @@
           "primaryKey": false,
           "notNull": true
         },
+        "phone": {
+          "name": "phone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "email_verified": {
           "name": "email_verified",
           "type": "boolean",
           "primaryKey": false,
           "notNull": true,
           "default": false
-        },
-        "image": {
-          "name": "image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
         },
         "role": {
           "name": "role",
@@ -698,14 +836,36 @@
         "CANCELLED"
       ]
     },
-    "public.pet_type": {
-      "name": "pet_type",
+    "public.city": {
+      "name": "city",
+      "schema": "public",
+      "values": [
+        "BEOGRAD",
+        "NOVI_SAD",
+        "NIS",
+        "KRAGUJEVAC",
+        "SUBOTICA"
+      ]
+    },
+    "public.pet": {
+      "name": "pet",
       "schema": "public",
       "values": [
         "DOG",
         "CAT",
         "BIRD",
         "OTHER"
+      ]
+    },
+    "public.service": {
+      "name": "service",
+      "schema": "public",
+      "values": [
+        "BOARDING",
+        "WALKING",
+        "FEEDING",
+        "BATHING",
+        "GROOMING"
       ]
     },
     "public.user_role": {

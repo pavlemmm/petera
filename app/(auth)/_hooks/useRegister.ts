@@ -32,18 +32,18 @@ export function useRegister() {
 
     if (!parsed.success) {
       setIsLoading(false);
-      setError("Polja nisu pravilno unesena");
-      return { success: false, error: "Polja nisu pravilno unesena" };
+      setError("Polja nisu ispravno popunjena.");
+      return { success: false, error: "Polja nisu ispravno popunjena." };
     }
 
-    const { email, password, name } = parsed.data;
+    const { email, password, name, phone } = parsed.data;
 
     try {
       await authClient.signUp.email(
-        { email, password, name, role },
+        { email, password, name, role, phone },
         {
           onRequest: () => setIsLoading(true),
-          onSuccess: () => router.push("/oglasi"),
+          onSuccess: () => router.push("/"),
           onError: (ctx) => setError(getAuthErrorMessage(ctx.error.code)),
         },
       );

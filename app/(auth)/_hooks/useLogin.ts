@@ -24,8 +24,8 @@ export function useLogin() {
     const parsed = UserLoginSchema.safeParse(values);
     if (!parsed.success) {
       setIsLoading(false);
-      setError("Polja nisu pravilno unesena");
-      return { success: false, error: "Polja nisu pravilno unesena" };
+      setError("Polja nisu ispravno popunjena.");
+      return { success: false, error: "Polja nisu ispravno popunjena." };
     }
 
     const { email, password } = parsed.data;
@@ -35,7 +35,7 @@ export function useLogin() {
         { email, password },
         {
           onRequest: () => setIsLoading(true),
-          onSuccess: () => router.push("/oglasi"),
+          onSuccess: () => router.push("/"),
           onError: (ctx) => setError(getAuthErrorMessage(ctx.error.code)),
         },
       );

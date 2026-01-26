@@ -14,6 +14,16 @@ export const PetValues = ["DOG", "CAT", "BIRD", "OTHER"] as const;
 export type PetType = typeof PetValues[number];
 export enum Pet { DOG = "DOG", CAT = "CAT", BIRD = "BIRD", OTHER = "OTHER" }
 
+export const ServiceValues = ["BOARDING", "WALKING", "FEEDING", "BATHING", "GROOMING"] as const;
+export type ServiceType = typeof ServiceValues[number];
+export enum Service {
+  BOARDING = "BOARDING",
+  WALKING = "WALKING",
+  FEEDING = "FEEDING",
+  BATHING = "BATHING",
+  GROOMING = "GROOMING",
+}
+
 export const UserRoleValues = ["OWNER", "SITTER"] as const;
 export type UserRoleType = typeof UserRoleValues[number];
 export enum UserRole { OWNER = "OWNER", SITTER = "SITTER", }

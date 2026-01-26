@@ -18,7 +18,12 @@ export const auth = betterAuth({
         required: true,
         defaultValue: UserRole.OWNER,
         input: true,
-      }
+      },
+      phone: {
+        type: "string",
+        required: true,
+        input: true,
+      },
     }
   },
 

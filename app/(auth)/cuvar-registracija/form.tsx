@@ -32,14 +32,14 @@ export default function Form() {
   return (
     <form onSubmit={handleSubmit}>
       <FieldSet>
-        <FieldLegend>Registruj se</FieldLegend>
+        <FieldLegend>Registrujte se</FieldLegend>
         <FieldDescription>
-          Popuni obrazac za prijavu sa osnovnim podacima
+          Popunite osnovne podatke za registraciju
         </FieldDescription>
 
         <FieldGroup>
           <Field>
-            <FieldLabel>Ime i Prezime</FieldLabel>
+            <FieldLabel>Ime i prezime</FieldLabel>
             <Input name="name" required />
           </Field>
 
@@ -49,12 +49,21 @@ export default function Form() {
           </Field>
 
           <Field>
-            <FieldLabel>Šifra</FieldLabel>
+            <FieldLabel>Broj telefona</FieldLabel>
+            <Input
+              name="phone"
+              type="tel"
+              required
+            />
+          </Field>
+
+          <Field>
+            <FieldLabel>Lozinka</FieldLabel>
             <Input name="password" type="password" required minLength={8} />
           </Field>
 
           <Field>
-            <FieldLabel>Potvrdi šifru</FieldLabel>
+            <FieldLabel>Potvrdite lozinku</FieldLabel>
             <Input
               name="confirmPassword"
               type="password"
@@ -63,7 +72,6 @@ export default function Form() {
             />
           </Field>
 
-          {/* TODO Fix this, not working rn */}
           <Field>
             <FieldLabel>Slike ličnog dokumenta</FieldLabel>
             <Input
@@ -74,8 +82,8 @@ export default function Form() {
               className="cursor-pointer"
             />
             <FieldDescription>
-              Pošalji jasne fotografije sebe i obe strane lične karte ili
-              pasoša.
+              Pošaljite jasne fotografije sebe i obe strane lične karte ili
+              pasoša radi verifikacije.
             </FieldDescription>
           </Field>
 
@@ -90,17 +98,17 @@ export default function Form() {
 
           <Field orientation="horizontal">
             <Button type="submit">
-              {isLoading ? "Registrujem se..." : "Pošalji registraciju"}
+              {isLoading ? "Registracija..." : "Pošaljite registraciju"}
             </Button>
 
             <Link href="/prijava">
               <Button variant="outline" type="button">
-                Već imam nalog
+                Već imate nalog
               </Button>
             </Link>
             <Link href="/vlasnik-registracija">
               <Button variant="outline" type="button">
-                Registruj se kao vlasnik
+                Registrujte se kao vlasnik
               </Button>
             </Link>
           </Field>
