@@ -1,15 +1,15 @@
-import { db } from "@/drizzle/db";
-import { users } from "@/drizzle/schema";
+import { randomUUID } from "crypto";
+import { db } from "@/db/db";
+import { user } from "@/db/schema";
 
 async function main() {
     const result = await db
-        .insert(users)
+        .insert(user)
         .values({
+            id: randomUUID(),
             email: "test233@example.com",
-            passwordHash: "haashed-pass",
             name: "Test23 User",
             role: "OWNER",
-            city: "Beograd"
         })
         .returning();
 

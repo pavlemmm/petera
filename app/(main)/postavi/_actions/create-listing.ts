@@ -14,6 +14,9 @@ export async function createListing(
   formData: FormData,
 ): Promise<CreateListingResult> {
   const { user } = await requireAuth(AuthMode.REQUIRED, UserRole.SITTER);
+  if (!user) {
+    return { success: false, error: "Niste prijavljeni." };
+  }
 
   const parsed = PostSchema.safeParse({
     title: formData.get("title"),

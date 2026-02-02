@@ -35,6 +35,9 @@ export async function createBooking(
   input: CreateBookingInput,
 ): Promise<CreateBookingResult> {
   const { user } = await requireAuth(AuthMode.REQUIRED, UserRole.OWNER);
+  if (!user) {
+    return { success: false, error: "Niste prijavljeni." };
+  }
 
   if (!isValidDate(input.startDate) || !isValidDate(input.endDate)) {
     return { success: false, error: "Datumi nisu validni." };

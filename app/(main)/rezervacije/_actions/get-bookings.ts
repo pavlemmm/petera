@@ -19,6 +19,7 @@ export type BookingListItem = {
 
 export async function getBookings(): Promise<BookingListItem[]> {
   const { user, role } = await requireAuth();
+  if (!user) return [];
 
   const baseQuery = db
     .select({
