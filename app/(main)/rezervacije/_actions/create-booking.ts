@@ -3,7 +3,7 @@
 import { db } from "@/db/db";
 import { booking, listing } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { requireAuth } from "@/lib/auth-server-helper";
+import { AuthMode, requireAuth } from "@/lib/auth-server-helper";
 import { UserRole } from "@/db/types";
 
 export type CreateBookingResult =
@@ -34,7 +34,7 @@ function calculateDays(startDate: string, endDate: string) {
 export async function createBooking(
   input: CreateBookingInput,
 ): Promise<CreateBookingResult> {
-  const { user } = await requireAuth(UserRole.OWNER);
+  const { user } = await requireAuth(AuthMode.REQUIRED, UserRole.OWNER);
 
   if (!isValidDate(input.startDate) || !isValidDate(input.endDate)) {
     return { success: false, error: "Datumi nisu validni." };

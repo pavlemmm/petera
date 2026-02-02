@@ -2,7 +2,7 @@
 
 import { db } from "@/db/db";
 import { listing, listingImage, listingPet, listingService } from "@/db/schema";
-import { requireAuth } from "@/lib/auth-server-helper";
+import { AuthMode, requireAuth } from "@/lib/auth-server-helper";
 import { UserRole } from "@/db/types";
 import { PostSchema } from "../_validations/listing";
 
@@ -13,7 +13,7 @@ export type CreateListingResult =
 export async function createListing(
   formData: FormData,
 ): Promise<CreateListingResult> {
-  const { user } = await requireAuth(UserRole.SITTER);
+  const { user } = await requireAuth(AuthMode.REQUIRED, UserRole.SITTER);
 
   const parsed = PostSchema.safeParse({
     title: formData.get("title"),
