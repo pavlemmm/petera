@@ -52,7 +52,7 @@ Petera provides a centralized marketplace for pet care, with structured listings
 ![Desktop screenshot 1](documentation/screenshots/1_desktop.png)
 ![Desktop screenshot 2](documentation/screenshots/2_desktop.png)
 ![Desktop screenshot 3](documentation/screenshots/3_desktop.png)
-![Desktop screenshot 6](documentation/screenshots/6_desktop.png)
+![Desktop screenshot 6](documentation/screenshots/4_desktop.png)
 
 ## Tech stack
 
