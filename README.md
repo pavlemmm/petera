@@ -2,6 +2,12 @@
 
 Petera is a web platform that connects pet owners with caregivers, making reliable pet care easy to find, compare, and book. The focus is on clear information, fast filtering, and straightforward reservations.
 
+## Status
+
+- Currently available only in Serbia
+- Localization/translation and expansion outside Serbia still need to be implemented
+- Payments are not active yet (reservations are created without charging)
+
 ## The problem
 
 Pet owners often struggle to find trustworthy caregivers in one place. Information is scattered across recommendations and ads, and comparing offers by price, location, and services is time-consuming. On the other side, caregivers lack a professional space to present their services clearly and consistently attract new clients.
@@ -23,6 +29,22 @@ Petera provides a centralized marketplace for pet care, with structured listings
 
 - Owner: browses listings and books reservations
 - Caregiver: publishes listings and receives reservations
+
+## Screenshots
+
+### Phone
+
+![Phone screenshot 1](documentation/screenshots/1_phone.png)
+![Phone screenshot 2](documentation/screenshots/2_phone.png)
+![Phone screenshot 3](documentation/screenshots/3_phone.png)
+![Phone screenshot 4](documentation/screenshots/4_phone.png)
+
+### Desktop
+
+![Desktop screenshot 1](documentation/screenshots/1_desktop.png)
+![Desktop screenshot 2](documentation/screenshots/2_desktop.png)
+![Desktop screenshot 3](documentation/screenshots/3_desktop.png)
+![Desktop screenshot 6](documentation/screenshots/6_desktop.png)
 
 ## Tech stack
 
@@ -88,6 +110,6 @@ The app will be available at `http://localhost:3000`.
 - `components` - shared UI components
 - `db` - schema and migrations
 
-## Feature status
+## License
 
-- Payments are not active yet (reservations are created without charging)
+Licensed under the GNU Affero General Public License v3.0 (AGPL-3.0). See `LICENSE`.
