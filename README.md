@@ -1,14 +1,12 @@
-# 🐾 Petera
-
-Petera is a web platform that connects pet owners with sitters, making reliable pet care easy to find, compare, and book. The focus is on clear information, fast filtering, and straightforward reservations.
-
----
-
 <div align="center">
   <img src="documentation/logo.png" alt="Petera logo" width="400" />
+  <h2/>
 </div>
 
----
+<p align="center">
+<b>🐾 Petera</b> is a web platform that connects pet owners with sitters, making reliable pet care easy to find, compare, and book. The focus is on clear information, fast filtering, and straightforward reservations.
+</p>
+<br/>
 
 ## Status
 
@@ -42,20 +40,20 @@ Petera provides a centralized marketplace for pet care, with structured listings
 
 ### Phone
 
-<div align="center">
-  <img src="documentation/screenshots/1_phone.png" alt="Phone screenshot 1" width="180" />
-  <img src="documentation/screenshots/2_phone.png" alt="Phone screenshot 2" width="180" />
-  <img src="documentation/screenshots/3_phone.png" alt="Phone screenshot 3" width="180" />
-  <img src="documentation/screenshots/4_phone.png" alt="Phone screenshot 4" width="180" />
+<div align="left">
+  <img src="documentation/screenshots/1_phone.png" alt="Phone screenshot 1" width="200" style="margin-left: 25px" />
+  <img src="documentation/screenshots/2_phone.png" alt="Phone screenshot 2" width="200" style="margin-left: 25px" />
+  <img src="documentation/screenshots/3_phone.png" alt="Phone screenshot 3" width="200" style="margin-left: 25px" />
+  <img src="documentation/screenshots/4_phone.png" alt="Phone screenshot 4" width="200" style="margin-left: 25px" />
 </div>
 
 ### Desktop
 
-<div align="center">
-  <img src="documentation/screenshots/1_desktop.png" alt="Desktop screenshot 1" width="520" />
-  <img src="documentation/screenshots/2_desktop.png" alt="Desktop screenshot 2" width="520" />
-  <img src="documentation/screenshots/3_desktop.png" alt="Desktop screenshot 3" width="520" />
-  <img src="documentation/screenshots/4_desktop.png" alt="Desktop screenshot 4" width="520" />
+<div align="left">
+  <img src="documentation/screenshots/1_desktop.png" alt="Desktop screenshot 1" width="600" />
+  <img src="documentation/screenshots/2_desktop.png" alt="Desktop screenshot 2" width="600" />
+  <img src="documentation/screenshots/3_desktop.png" alt="Desktop screenshot 3" width="600" />
+  <img src="documentation/screenshots/4_desktop.png" alt="Desktop screenshot 4" width="600" />
 </div>
 
 ## Tech stack
